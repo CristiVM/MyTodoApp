@@ -24,3 +24,11 @@ class TodoListCreateView(generics.ListCreateAPIView):
             serializer.save(author=self.request.user)
         else:
             print(serializer.errors)
+
+class TodoDeleteView(generics.DestroyAPIView):
+    serializer_class = TodoSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        user = self.request.user
+        return Todo.objects.filter(author=user)

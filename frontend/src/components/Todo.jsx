@@ -1,8 +1,7 @@
 function Todo({ todo }) {
     return (
         <div>
-            <p>{todo.title}</p>
-            <p>{todo.completed ? "Completed" : "Pending"}</p>
+            <p>{todo.title} - {todo.completed ? "Completed" : "Pending"}</p>
         </div>
     )
 }
