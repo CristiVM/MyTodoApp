@@ -27,6 +27,17 @@ function Home() {
             .catch((err) => alert(err));
     }
 
+    const deleteTodo = (id) => {
+        api
+            .delete(`/api/todos/delete/${id}/`)
+            .then((response) => {
+                if (response.status === 204) alert("Note deleted!");
+                else alert("Failed to delete note.");
+                getTodos();
+            })
+            .catch((error) => alert(error));
+    };
+
     useEffect(() => {
         getTodos();
     }, []);
@@ -51,7 +62,7 @@ function Home() {
                 </form>
 
                 {todos.map((todo) => (
-                    <Todo todo={todo} key={todo.id} />
+                    <Todo todo={todo} onDelete={deleteTodo} key={todo.id} />
                 ))}
             </div>
         </>
