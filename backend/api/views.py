@@ -32,3 +32,11 @@ class TodoDeleteView(generics.DestroyAPIView):
     def get_queryset(self):
         user = self.request.user
         return Todo.objects.filter(author=user)
+    
+class TodoUpdateView(generics.UpdateAPIView):
+    serializer_class = TodoSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+        return Todo.objects.filter(author=user)
