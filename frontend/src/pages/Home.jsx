@@ -25,7 +25,7 @@ function Home() {
                 getTodos();
             })
             .catch((err) => alert(err));
-    }
+    };
 
     const deleteTodo = (id) => {
         api
@@ -33,6 +33,28 @@ function Home() {
             .then((response) => {
                 if (response.status === 204) alert("Note deleted!");
                 else alert("Failed to delete note.");
+                getTodos();
+            })
+            .catch((error) => alert(error));
+    };
+
+    const updateTitle = (id, title) => {
+        api
+            .patch(`/api/todos/update/${id}/`, { title })
+            .then((response) => {
+                if (response.status === 200) alert("Title updated!");
+                else alert("Failed to update the title!");
+                getTodos();
+            })
+            .catch((error) => alert(error));
+    };
+
+    const updateCompleted = (id, completed) => {
+        api
+            .patch(`/api/todos/update/${id}/`, { completed })
+            .then((response) => {
+                if (response.status === 200) alert("Completed updated!");
+                else alert("Failed to update the Completed!");
                 getTodos();
             })
             .catch((error) => alert(error));
@@ -62,7 +84,13 @@ function Home() {
                 </form>
 
                 {todos.map((todo) => (
-                    <Todo todo={todo} onDelete={deleteTodo} key={todo.id} />
+                    <Todo 
+                        todo={todo} 
+                        onDelete={deleteTodo} 
+                        onUpdateTitle={updateTitle} 
+                        onUpdateCompleted={updateCompleted} 
+                        key={todo.id} 
+                    />
                 ))}
             </div>
         </>
